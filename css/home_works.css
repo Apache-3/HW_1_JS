@@ -124,6 +124,7 @@
     inset: 0;
     margin: auto;
     transition: 1s linear;
+    width: 100px;
 }
 
 .minutes {
@@ -134,6 +135,7 @@
     inset: 0;
     margin: auto;
     transition: 1s linear;
+    width: 100px;
 }
 
 .stop-anim {

@@ -28,16 +28,74 @@ function validate (){
 
 const parentBlock = document.querySelector('.parent_block')
 const childBlock = document.querySelector('.child_block')
+const width = parentBlock.offsetWidth - childBlock.offsetWidth
 
-function recursionCount(position) {
-    childBlock.style.left = position + 'px'
-    if (position < parentBlock.offsetWidth - childBlock.offsetWidth) {
+let x = 0
+let y = 0
+function recursionCount() {
+    if( x < width && y===0) {
         setTimeout(function() {
-            recursionCount(position + 1)
+            x += 1
+            recursionCount()
+        }, 10)
+    }else if (x === width && y < width) {
+        setTimeout(function() {
+            y += 1
+            recursionCount()
+        }, 10)
+    }else if (y === width && x > 0) {
+        setTimeout(function() {
+            x -= 1
+            recursionCount()
+        }, 10)
+    }else if (x === 0 && y > 0) {
+        setTimeout(function() {
+            y -= 1
+            recursionCount()
         }, 10)
     }
+    childBlock.style.top = y + 'px'
+    childBlock.style.left = x + 'px'
 }
-recursionCount(0)
+recursionCount()
 
+
+// HOME WORK 2
+
+const startButton = document.querySelector('#start')
+const stopButton = document.querySelector('#stop')
+const resetButton= document.querySelector('#reset')
+const msec = document.querySelector('#ml-secondsS')
+const sec = document.querySelector('#secondsS')
+const min = document.querySelector('#minutesS')
+
+let timer
+let ms = 0
+
+startButton.addEventListener('click',() => {
+    timer = setInterval( ()=>{
+        ms += 10
+        update()
+    } , 10)
+})
+stopButton.addEventListener('click',() => {
+    clearInterval(timer)
+})
+resetButton.addEventListener('click',() => {
+
+    clearInterval(timer)
+    ms = 0
+    update()
+})
+function update (){
+    let milliseconds = ms
+    const minutes = Math.floor(milliseconds/60000)
+    milliseconds -= minutes * 60000
+    const seconds = Math.floor(milliseconds/1000)
+    milliseconds -= seconds * 1000
+    msec.textContent = milliseconds
+    sec.textContent = seconds
+    min.textContent = minutes
+}
 
 
