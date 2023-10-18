@@ -13,3 +13,44 @@ phoneButton.addEventListener('click',() =>{
         phoneResult.style.color = 'red'
     }
 })
+
+// TAB SLIDER
+const tabContentBlocks = document.querySelectorAll('.tab_content_block')
+const tabsParentBlock = document.querySelector('.tab_content_items')
+const tabsBlocks = document.querySelectorAll('.tab_content_item')
+
+
+
+const hideTabContent = () => {
+    tabContentBlocks.forEach(tabContentBlock=> {
+        tabContentBlock.style.display = 'none'
+    })
+    tabsBlocks.forEach(tabBlock => {
+        tabBlock.classList.remove('tab_content_item_active')
+
+    })
+}
+const showTabContents = (indexElement = 0) => {
+    tabContentBlocks[indexElement].style.display = 'block'
+    tabsBlocks[indexElement].classList.add('tab_content_item_active')
+}
+hideTabContent()
+showTabContents()
+
+tabsParentBlock.onclick = (event) => {
+    if (event.target.classList.contains('tab_content_item')){
+        tabsBlocks.forEach((tabBlock, tabIndex)=> {
+            if (event.target === tabBlock){
+                hideTabContent()
+                showTabContents(tabIndex)
+            }
+        })
+    }
+}
+let sliderIndex = 0
+const autoSlider = () => {
+    hideTabContent()
+    sliderIndex = (sliderIndex + 1) % tabContentBlocks.length
+    showTabContents(sliderIndex)
+}
+setInterval(autoSlider, 5000)
